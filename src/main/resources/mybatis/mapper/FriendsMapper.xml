@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.triofunny.trio.dao.FriendsMapper">
+  <resultMap id="BaseResultMap" type="com.triofunny.trio.model.Friends">
+    <result column="fromUserId" jdbcType="VARCHAR" property="fromuserid" />
+    <result column="toUserId" jdbcType="VARCHAR" property="touserid" />
+  </resultMap>
+  <insert id="insert" parameterType="com.triofunny.trio.model.Friends">
+    insert into tr_friends (fromUserId, toUserId)
+    values (#{fromuserid,jdbcType=VARCHAR}, #{touserid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.triofunny.trio.model.Friends">
+    insert into tr_friends
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fromuserid != null">
+        fromUserId,
+      </if>
+      <if test="touserid != null">
+        toUserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fromuserid != null">
+        #{fromuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="touserid != null">
+        #{touserid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.triofunny.trio.dao.ResumeMapper">
+  <resultMap id="BaseResultMap" type="com.triofunny.trio.model.Resume">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="userId" jdbcType="VARCHAR" property="userid" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="graduate" jdbcType="VARCHAR" property="graduate" />
+    <result column="degree" jdbcType="VARCHAR" property="degree" />
+    <result column="household" jdbcType="VARCHAR" property="household" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="salary" jdbcType="DECIMAL" property="salary" />
+    <result column="workPlace" jdbcType="VARCHAR" property="workplace" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="selfAssessment" jdbcType="VARCHAR" property="selfassessment" />
+    <result column="skills" jdbcType="VARCHAR" property="skills" />
+    <result column="hobbies" jdbcType="VARCHAR" property="hobbies" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, userId, position, graduate, degree, household, country, address, salary, workPlace, 
+    keywords, selfAssessment, skills, hobbies
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tr_resume
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tr_resume
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.triofunny.trio.model.Resume">
+    insert into tr_resume (Id, userId, position, 
+      graduate, degree, household, 
+      country, address, salary, 
+      workPlace, keywords, selfAssessment, 
+      skills, hobbies)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{graduate,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR}, #{household,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{salary,jdbcType=DECIMAL}, 
+      #{workplace,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, #{selfassessment,jdbcType=VARCHAR}, 
+      #{skills,jdbcType=VARCHAR}, #{hobbies,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.triofunny.trio.model.Resume">
+    insert into tr_resume
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="graduate != null">
+        graduate,
+      </if>
+      <if test="degree != null">
+        degree,
+      </if>
+      <if test="household != null">
+        household,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+      <if test="workplace != null">
+        workPlace,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="selfassessment != null">
+        selfAssessment,
+      </if>
+      <if test="skills != null">
+        skills,
+      </if>
+      <if test="hobbies != null">
+        hobbies,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="graduate != null">
+        #{graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null">
+        #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="household != null">
+        #{household,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="workplace != null">
+        #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="selfassessment != null">
+        #{selfassessment,jdbcType=VARCHAR},
+      </if>
+      <if test="skills != null">
+        #{skills,jdbcType=VARCHAR},
+      </if>
+      <if test="hobbies != null">
+        #{hobbies,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.triofunny.trio.model.Resume">
+    update tr_resume
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="graduate != null">
+        graduate = #{graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null">
+        degree = #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="household != null">
+        household = #{household,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="workplace != null">
+        workPlace = #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="selfassessment != null">
+        selfAssessment = #{selfassessment,jdbcType=VARCHAR},
+      </if>
+      <if test="skills != null">
+        skills = #{skills,jdbcType=VARCHAR},
+      </if>
+      <if test="hobbies != null">
+        hobbies = #{hobbies,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.triofunny.trio.model.Resume">
+    update tr_resume
+    set userId = #{userid,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      graduate = #{graduate,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=VARCHAR},
+      household = #{household,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=DECIMAL},
+      workPlace = #{workplace,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      selfAssessment = #{selfassessment,jdbcType=VARCHAR},
+      skills = #{skills,jdbcType=VARCHAR},
+      hobbies = #{hobbies,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

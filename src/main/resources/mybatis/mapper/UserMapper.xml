@@ -1,9 +1,296 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.triofunny.trio.model.UserMapper">
-    <select id="selectUserById" resultType="com.triofunny.trio.model.User">
-        select * from user where id = #{id}
-    </select>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.triofunny.trio.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.triofunny.trio.model.User">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="lastLoginIp" jdbcType="VARCHAR" property="lastloginip" />
+    <result column="isBan" jdbcType="BIT" property="isban" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="emailConfirm" jdbcType="BIT" property="emailconfirm" />
+    <result column="github" jdbcType="VARCHAR" property="github" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="phoneConfirm" jdbcType="BIT" property="phoneconfirm" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="banReason" jdbcType="VARCHAR" property="banreason" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="gender" jdbcType="BIT" property="gender" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="exp" jdbcType="INTEGER" property="exp" />
+    <result column="wealth" jdbcType="DECIMAL" property="wealth" />
+    <result column="headPortrait" jdbcType="VARCHAR" property="headportrait" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, userName, password, lastLoginTime, lastLoginIp, isBan, email, emailConfirm, github, 
+    phone, phoneConfirm, nickname, banReason, introduce, qq, gender, school, age, exp, 
+    wealth, headPortrait
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tr_user
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tr_user
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.triofunny.trio.model.User">
+    insert into tr_user (Id, userName, password, 
+      lastLoginTime, lastLoginIp, isBan, 
+      email, emailConfirm, github, 
+      phone, phoneConfirm, nickname, 
+      banReason, introduce, qq, 
+      gender, school, age, exp, 
+      wealth, headPortrait)
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{lastlogintime,jdbcType=TIMESTAMP}, #{lastloginip,jdbcType=VARCHAR}, #{isban,jdbcType=BIT}, 
+      #{email,jdbcType=VARCHAR}, #{emailconfirm,jdbcType=BIT}, #{github,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{phoneconfirm,jdbcType=BIT}, #{nickname,jdbcType=VARCHAR}, 
+      #{banreason,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=BIT}, #{school,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{exp,jdbcType=INTEGER}, 
+      #{wealth,jdbcType=DECIMAL}, #{headportrait,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.triofunny.trio.model.User">
+    insert into tr_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime,
+      </if>
+      <if test="lastloginip != null">
+        lastLoginIp,
+      </if>
+      <if test="isban != null">
+        isBan,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="emailconfirm != null">
+        emailConfirm,
+      </if>
+      <if test="github != null">
+        github,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="phoneconfirm != null">
+        phoneConfirm,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="banreason != null">
+        banReason,
+      </if>
+      <if test="introduce != null">
+        introduce,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="exp != null">
+        exp,
+      </if>
+      <if test="wealth != null">
+        wealth,
+      </if>
+      <if test="headportrait != null">
+        headPortrait,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastloginip != null">
+        #{lastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="isban != null">
+        #{isban,jdbcType=BIT},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailconfirm != null">
+        #{emailconfirm,jdbcType=BIT},
+      </if>
+      <if test="github != null">
+        #{github,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneconfirm != null">
+        #{phoneconfirm,jdbcType=BIT},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="banreason != null">
+        #{banreason,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null">
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null">
+        #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="wealth != null">
+        #{wealth,jdbcType=DECIMAL},
+      </if>
+      <if test="headportrait != null">
+        #{headportrait,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.triofunny.trio.model.User">
+    update tr_user
+    <set>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastloginip != null">
+        lastLoginIp = #{lastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="isban != null">
+        isBan = #{isban,jdbcType=BIT},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailconfirm != null">
+        emailConfirm = #{emailconfirm,jdbcType=BIT},
+      </if>
+      <if test="github != null">
+        github = #{github,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneconfirm != null">
+        phoneConfirm = #{phoneconfirm,jdbcType=BIT},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="banreason != null">
+        banReason = #{banreason,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="school != null">
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null">
+        exp = #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="wealth != null">
+        wealth = #{wealth,jdbcType=DECIMAL},
+      </if>
+      <if test="headportrait != null">
+        headPortrait = #{headportrait,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.triofunny.trio.model.User">
+    update tr_user
+    set userName = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      lastLoginIp = #{lastloginip,jdbcType=VARCHAR},
+      isBan = #{isban,jdbcType=BIT},
+      email = #{email,jdbcType=VARCHAR},
+      emailConfirm = #{emailconfirm,jdbcType=BIT},
+      github = #{github,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      phoneConfirm = #{phoneconfirm,jdbcType=BIT},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      banReason = #{banreason,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=BIT},
+      school = #{school,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      exp = #{exp,jdbcType=INTEGER},
+      wealth = #{wealth,jdbcType=DECIMAL},
+      headPortrait = #{headportrait,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectBySql" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  
+    <include refid="Base_Column_List" />
+    from tr_user  
+    where ${value} 
+  </select>
+  
+  <select id="selectUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  
+    <include refid="Base_Column_List" />
+    from tr_user  
+    where ${value} 
+  </select>
+  
 </mapper>

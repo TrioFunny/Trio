@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.triofunny.trio.dao.WorkExperienceMapper">
+  <resultMap id="BaseResultMap" type="com.triofunny.trio.model.WorkExperience">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="userId" jdbcType="VARCHAR" property="userid" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="salary" jdbcType="DECIMAL" property="salary" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, userId, company, position, startTime, endTime, description, address, salary, 
+    industry
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tr_work_experience
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tr_work_experience
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.triofunny.trio.model.WorkExperience">
+    insert into tr_work_experience (Id, userId, company, 
+      position, startTime, endTime, 
+      description, address, salary, 
+      industry)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{salary,jdbcType=DECIMAL}, 
+      #{industry,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.triofunny.trio.model.WorkExperience">
+    insert into tr_work_experience
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+      <if test="industry != null">
+        industry,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.triofunny.trio.model.WorkExperience">
+    update tr_work_experience
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.triofunny.trio.model.WorkExperience">
+    update tr_work_experience
+    set userId = #{userid,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=DECIMAL},
+      industry = #{industry,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

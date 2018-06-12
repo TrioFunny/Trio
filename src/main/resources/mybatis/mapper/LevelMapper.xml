@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.triofunny.trio.dao.LevelMapper">
+  <resultMap id="BaseResultMap" type="com.triofunny.trio.model.Level">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="startValue" jdbcType="DECIMAL" property="startvalue" />
+    <result column="endValue" jdbcType="DECIMAL" property="endvalue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, name, startValue, endValue
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tr_level
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tr_level
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.triofunny.trio.model.Level">
+    insert into tr_level (Id, name, startValue, 
+      endValue)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{startvalue,jdbcType=DECIMAL}, 
+      #{endvalue,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.triofunny.trio.model.Level">
+    insert into tr_level
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="startvalue != null">
+        startValue,
+      </if>
+      <if test="endvalue != null">
+        endValue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startvalue != null">
+        #{startvalue,jdbcType=DECIMAL},
+      </if>
+      <if test="endvalue != null">
+        #{endvalue,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.triofunny.trio.model.Level">
+    update tr_level
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startvalue != null">
+        startValue = #{startvalue,jdbcType=DECIMAL},
+      </if>
+      <if test="endvalue != null">
+        endValue = #{endvalue,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.triofunny.trio.model.Level">
+    update tr_level
+    set name = #{name,jdbcType=VARCHAR},
+      startValue = #{startvalue,jdbcType=DECIMAL},
+      endValue = #{endvalue,jdbcType=DECIMAL}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

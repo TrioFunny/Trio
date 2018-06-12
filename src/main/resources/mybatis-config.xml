@@ -40,9 +40,21 @@
         <!--</plugin>-->
     <!--</plugins>-->
     <typeAliases>
-        <package name="com.triofunny.trio.model"/>
+        <package name="com.triofunny.trio.dao"/>
     </typeAliases>
     <mappers>
+        <mapper resource="mybatis/mapper/ArticleMapper.xml"/>
+        <mapper resource="mybatis/mapper/FriendsMapper.xml"/>
+        <mapper resource="mybatis/mapper/LevelMapper.xml"/>
+        <mapper resource="mybatis/mapper/ProjectMapper.xml"/>
+        <mapper resource="mybatis/mapper/ResumeMapper.xml"/>
+        <mapper resource="mybatis/mapper/RoleMapper.xml"/>
+        <mapper resource="mybatis/mapper/RoleRuleMapper.xml"/>
+        <mapper resource="mybatis/mapper/RuleMapper.xml"/>
+        <mapper resource="mybatis/mapper/SignMapper.xml"/>
+        <mapper resource="mybatis/mapper/TagMapper.xml"/>
+        <mapper resource="mybatis/mapper/TypeMapper.xml"/>
         <mapper resource="mybatis/mapper/UserMapper.xml"/>
+        <mapper resource="mybatis/mapper/WorkExperienceMapper.xml"/>
     </mappers>
 </configuration>
