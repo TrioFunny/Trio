@@ -40,7 +40,7 @@
         <!--</plugin>-->
     <!--</plugins>-->
     <typeAliases>
-        <package name="com.triofunny.trio.dao"/>
+        <package name="com.triofunny.trio"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mapper/ArticleMapper.xml"/>
