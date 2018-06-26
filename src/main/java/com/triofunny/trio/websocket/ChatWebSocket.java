@@ -30,7 +30,7 @@ public class ChatWebSocket {
         String uuid = UUID.randomUUID().toString();
         OnlineUsers.put(uuid, this);
         try {
-            this.session.getBasicRemote().sendText("{'common':'Login','data':{'info':'success','ssid':'" + uuid + "'}}");
+            this.session.getBasicRemote().sendText("{\"common\":\"Login\",\"data\":{\"info\":\"success\",\"ssid\":\"" + uuid + "\"}}");
         } catch (IOException e) {
             e.printStackTrace();
         }
