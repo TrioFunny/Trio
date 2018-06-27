@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller()
@@ -25,17 +28,17 @@ public class LoginController {
 
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public ResultMsg login(HttpServletRequest request, String userName, String password) {
+	public ResultMsg login(String userName, String password) {
 		ResultMsg resultMsg = new ResultMsg();
-		if (userName.equals("") || password.equals("")) {
+		if (StringUtils.isEmpty(userName)||StringUtils.isEmpty(password)) {
 			resultMsg.error(ResultContant.RESULT_MSG_FAIL_NO_PARA, ResultContant.RESULT_CODE_FAIL_NO_PARA);
 			return resultMsg;
 		}
 		User user = userService.selectByUserName(userName);
 		if (user != null) {
-			resultMsg.success(user);
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
+			Map<String,Object> resultMap=new HashMap<>();
+			resultMap.put("userId", user.getId());
+			resultMsg.success(resultMap);
 		} else {
 			resultMsg.error(ResultContant.RESULT_MSG_USERNAME_ERROR, ResultContant.RESULT_CODE_USERNAME_ERROR);
 		}

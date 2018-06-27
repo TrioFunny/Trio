@@ -24,7 +24,7 @@ public class UserController {
 
 	@RequestMapping(value = "/getUser")
 	@ResponseBody
-	public ResultMsg getUser(HttpServletRequest request, String userId) {
+	public ResultMsg getUser( String userId) {
 		ResultMsg resultMsg = new ResultMsg();
 		if (userId == null) {
 			resultMsg.error(ResultContant.RESULT_MSG_FAIL_NO_PARA, ResultContant.RESULT_CODE_FAIL_NO_PARA);
@@ -62,7 +62,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/getUserInfo")
 	@ResponseBody
-	public ResultMsg getUserInfo(HttpServletRequest request, HttpServletResponse response, String userId) {
+	public ResultMsg getUserInfo(String userId) {
 		ResultMsg resultMsg = new ResultMsg();
 		if (userId == null) {
 			resultMsg.error(ResultContant.RESULT_MSG_FAIL_NO_PARA, ResultContant.RESULT_CODE_FAIL_NO_PARA);
