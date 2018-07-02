@@ -1,34 +1,28 @@
 package com.triofunny.trio.dto;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class BaseDto {
 
-	/**请求对象**/
-	private HttpServletRequest request;
-	/**响应对象**/
-	private HttpServletResponse response;
-	/**时间戳**/
-	private String timeStamp;
-	public HttpServletRequest getRequest() {
-		return request;
+	private String userId;
+	
+	private String sign;
+
+	public String getUserId() {
+		return userId;
 	}
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public HttpServletResponse getResponse() {
-		return response;
+
+	public String getSign() {
+		return sign;
 	}
-	public void setResponse(HttpServletResponse response) {
-		this.response = response;
+
+	public void setSign(String sign) {
+		this.sign = sign;
 	}
-	public String getTimeStamp() {
-		return timeStamp;
-	}
-	public void setTimeStamp(String timeStamp) {
-		this.timeStamp = timeStamp;
-	}
+	
 	
 	
 }

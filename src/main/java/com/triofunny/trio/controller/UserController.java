@@ -1,5 +1,6 @@
 package com.triofunny.trio.controller;
 
+import com.triofunny.trio.dto.BaseDto;
 import com.triofunny.trio.dto.UserInfoDto;
 import com.triofunny.trio.model.User;
 import com.triofunny.trio.service.IUserService;
@@ -7,6 +8,7 @@ import com.triofunny.trio.util.contstant.ResultContant;
 import com.triofunny.trio.util.msg.ResultMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,11 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 
+	/**
+	 * 获取用户信息
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(value = "/getUser")
 	@ResponseBody
 	public ResultMsg getUser( String userId) {
@@ -37,6 +44,11 @@ public class UserController {
 		return resultMsg;
 	}
 
+	/**
+	 * 获取头像
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getImage", method = RequestMethod.GET)
 	@ResponseBody
 	public ResultMsg getImage(HttpServletRequest request) {
@@ -53,7 +65,7 @@ public class UserController {
 	}
 
 	/**
-	 * 获取用户信息 wkf
+	 * 获取用户信息 
 	 * 
 	 * @param request
 	 * @param response
@@ -100,4 +112,34 @@ public class UserController {
 		return resultMsg;
 	}
 
+	@RequestMapping(value = "/changePassword")
+	@ResponseBody
+	public ResultMsg changePassword(BaseDto dto, String oldPass, String pass) {
+		ResultMsg resultMsg = new ResultMsg();
+		if (StringUtils.isEmpty(dto.getUserId())) {
+			//System.out.println("空");
+			resultMsg.error(ResultContant.RESULT_MSG_NOT_LOGIN_ERROR, ResultContant.RESULT_CODE_NOT_LOGIN_ERROR);
+			return resultMsg;
+		}
+		if(StringUtils.isEmpty(oldPass)||StringUtils.isEmpty(pass)) {
+			resultMsg.error(ResultContant.PARAMETER_IS_EMPTY_MSG, ResultContant.PARAMETER_IS_EMPTY_CODE);
+		}
+		User user=userService.selectByPrimaryKey(dto.getUserId());
+		if(!user.getPassword().equals(oldPass)){
+			resultMsg.error(ResultContant.RESULT_MSG_PASSWORD_ERROR, ResultContant.RESULT_CODE_PASSWORD_ERROR);
+		}
+		user.setPassword(pass);
+		try {
+			userService.updateByPrimaryKey(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMsg.error(ResultContant.RESULT_MSG_CHANGE_PASSWORD_ERROR,
+					ResultContant.RESULT_CODE_CHANGE_PASSWORD_ERROR);
+			return resultMsg;
+		}
+		String msg = "用户名使用成功";
+		resultMsg.success(msg);
+		return resultMsg;
+	}
+	
 }

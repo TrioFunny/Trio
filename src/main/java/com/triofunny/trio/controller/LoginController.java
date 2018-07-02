@@ -68,7 +68,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/regist")
 	@ResponseBody
-	public ResultMsg register(HttpServletRequest request, String userName, String password) {
+	public ResultMsg register(String userName, String password) {
 		ResultMsg resultMsg = new ResultMsg();
 		if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
 			resultMsg.error(ResultContant.RESULT_MSG_FAIL_NO_PARA, ResultContant.RESULT_CODE_FAIL_NO_PARA);
@@ -101,7 +101,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/userInfo")
 	@ResponseBody
-	public ResultMsg getUserInfo(HttpServletRequest request, String userName) {
+	public ResultMsg getUserInfo(String userId, String userName) {
 		ResultMsg resultMsg = new ResultMsg();
 		if (userName.equals("")) {
 			resultMsg.error(ResultContant.RESULT_MSG_FAIL_NO_PARA, ResultContant.RESULT_CODE_FAIL_NO_PARA);
@@ -114,32 +114,5 @@ public class LoginController {
 		return resultMsg;
 	}
 
-	@RequestMapping(value = "/changePassword")
-	@ResponseBody
-	public ResultMsg changePassword(HttpServletRequest request, String oldPass, String pass) {
-		ResultMsg resultMsg = new ResultMsg();
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		if (user == null) {
-			//System.out.println("空");
-			resultMsg.error(ResultContant.RESULT_MSG_NOT_LOGIN_ERROR, ResultContant.RESULT_CODE_NOT_LOGIN_ERROR);
-			return resultMsg;
-		}
-		if (!user.getPassword().equals(oldPass)) {
-			resultMsg.error(ResultContant.RESULT_MSG_PASSWORD_ERROR, ResultContant.RESULT_CODE_PASSWORD_ERROR);
-			return resultMsg;
-		}
-		user.setPassword(pass);
-		try {
-			userService.updateByPrimaryKey(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-			resultMsg.error(ResultContant.RESULT_MSG_CHANGE_PASSWORD_ERROR,
-					ResultContant.RESULT_CODE_CHANGE_PASSWORD_ERROR);
-			return resultMsg;
-		}
-		String msg = "用户名使用成功";
-		resultMsg.success(msg);
-		return resultMsg;
-	}
+
 }
