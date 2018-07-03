@@ -33,6 +33,10 @@ public class ResultContant {
 	public static final String RESULT_CODE_USERNAME_NUll = "223";
 	public static final String RESULT_MSG_USERNAME_NULL = "用户名不能为空";
 
+	/**参数为空**/
+	public static final String PARAMETER_IS_EMPTY_CODE = "224";
+	public static final String PARAMETER_IS_EMPTY_MSG = "参数为空";
+	
 	/** 密码错误 **/
 	public static final String RESULT_CODE_PASSWORD_ERROR = "230";
 	public static final String RESULT_MSG_PASSWORD_ERROR = "密码错误";

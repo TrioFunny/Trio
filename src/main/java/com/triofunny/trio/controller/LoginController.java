@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller()
@@ -25,17 +28,17 @@ public class LoginController {
 
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public ResultMsg login(HttpServletRequest request, String userName, String password) {
+	public ResultMsg login(String userName, String password) {
 		ResultMsg resultMsg = new ResultMsg();
-		if (userName.equals("") || password.equals("")) {
+		if (StringUtils.isEmpty(userName)||StringUtils.isEmpty(password)) {
 			resultMsg.error(ResultContant.RESULT_MSG_FAIL_NO_PARA, ResultContant.RESULT_CODE_FAIL_NO_PARA);
 			return resultMsg;
 		}
 		User user = userService.selectByUserName(userName);
 		if (user != null) {
-			resultMsg.success(user);
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
+			Map<String,Object> resultMap=new HashMap<>();
+			resultMap.put("userId", user.getId());
+			resultMsg.success(resultMap);
 		} else {
 			resultMsg.error(ResultContant.RESULT_MSG_USERNAME_ERROR, ResultContant.RESULT_CODE_USERNAME_ERROR);
 		}
@@ -65,7 +68,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/regist")
 	@ResponseBody
-	public ResultMsg register(HttpServletRequest request, String userName, String password) {
+	public ResultMsg register(String userName, String password) {
 		ResultMsg resultMsg = new ResultMsg();
 		if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
 			resultMsg.error(ResultContant.RESULT_MSG_FAIL_NO_PARA, ResultContant.RESULT_CODE_FAIL_NO_PARA);
@@ -98,7 +101,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/userInfo")
 	@ResponseBody
-	public ResultMsg getUserInfo(HttpServletRequest request, String userName) {
+	public ResultMsg getUserInfo(String userId, String userName) {
 		ResultMsg resultMsg = new ResultMsg();
 		if (userName.equals("")) {
 			resultMsg.error(ResultContant.RESULT_MSG_FAIL_NO_PARA, ResultContant.RESULT_CODE_FAIL_NO_PARA);
@@ -111,32 +114,5 @@ public class LoginController {
 		return resultMsg;
 	}
 
-	@RequestMapping(value = "/changePassword")
-	@ResponseBody
-	public ResultMsg changePassword(HttpServletRequest request, String oldPass, String pass) {
-		ResultMsg resultMsg = new ResultMsg();
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		if (user == null) {
-			//System.out.println("空");
-			resultMsg.error(ResultContant.RESULT_MSG_NOT_LOGIN_ERROR, ResultContant.RESULT_CODE_NOT_LOGIN_ERROR);
-			return resultMsg;
-		}
-		if (!user.getPassword().equals(oldPass)) {
-			resultMsg.error(ResultContant.RESULT_MSG_PASSWORD_ERROR, ResultContant.RESULT_CODE_PASSWORD_ERROR);
-			return resultMsg;
-		}
-		user.setPassword(pass);
-		try {
-			userService.updateByPrimaryKey(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-			resultMsg.error(ResultContant.RESULT_MSG_CHANGE_PASSWORD_ERROR,
-					ResultContant.RESULT_CODE_CHANGE_PASSWORD_ERROR);
-			return resultMsg;
-		}
-		String msg = "用户名使用成功";
-		resultMsg.success(msg);
-		return resultMsg;
-	}
+
 }
