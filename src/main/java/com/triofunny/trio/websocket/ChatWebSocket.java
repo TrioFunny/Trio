@@ -47,15 +47,15 @@ public class ChatWebSocket {
     public void sendMessage(String messgae) {
         ChatTransfer transfer = JSON.parseObject(messgae, ChatTransfer.class);
         if (transfer.getCommon() == ChatCommon.Login) {
-            if (transfer.getData() instanceof SocketUid) {
-                SocketUid socketUid = (SocketUid) transfer.getData();
+            SocketUid socketUid = JSON.parseObject(transfer.getData().toString(),SocketUid.class);
+            if (socketUid!=null) {
                 ChatWebSocket socket = OnlineUsers.get(socketUid.getUuid());
                 OnlineUsers.remove(socketUid.getUuid());
                 OnlineUsers.put(socketUid.getUid(),socket);
             }
         } else if (transfer.getCommon() == ChatCommon.Message) {
-            if (transfer.getData() instanceof ChatModel) {
-                ChatModel chatModel = (ChatModel) transfer.getData();
+            ChatModel chatModel = JSON.parseObject(transfer.getData().toString(),ChatModel.class);
+            if (chatModel!=null) {
                 if (chatModel.getType() == ChatType.Single) {
                     try {
                         OnlineUsers.get(chatModel.getToId()).session.getBasicRemote().sendText(messgae);
