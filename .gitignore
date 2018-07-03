@@ -32,3 +32,8 @@ nbdist/
 .project
 .classpath
 .settings/
+pom.xml
+src/main/resources/application.properties
+src/main/webapp/static/image/8f253be5-4616-4acb-bd6f-2190cd1c1b77.JPG
+src/main/webapp/static/image/b99fa704-f8d6-41bb-b374-07f5dbf04327.JPG
+pom.xml
