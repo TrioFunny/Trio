@@ -1,9 +1,7 @@
 package com.triofunny.trio.websocket;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.triofunny.trio.websocket.chat.*;
-import org.apache.ibatis.javassist.expr.Instanceof;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.OnClose;
@@ -15,7 +13,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
 @ServerEndpoint("/chatwebsocket")
@@ -44,7 +41,7 @@ public class ChatWebSocket {
     }
 
     @OnMessage
-    public void sendMessage(String messgae) {
+    public void sendMessage(String messgae) throws IOException {
         ChatTransfer transfer = JSON.parseObject(messgae, ChatTransfer.class);
         if (transfer.getCommon() == ChatCommon.Login) {
             SocketUid socketUid = JSON.parseObject(transfer.getData().toString(),SocketUid.class);
@@ -54,33 +51,26 @@ public class ChatWebSocket {
                 OnlineUsers.put(socketUid.getUid(),socket);
             }
         } else if (transfer.getCommon() == ChatCommon.Message) {
-            ChatModel chatModel = JSON.parseObject(transfer.getData().toString(),ChatModel.class);
-            if (chatModel!=null) {
-                if (chatModel.getType() == ChatType.Single) {
-                    try {
-                        OnlineUsers.get(chatModel.getToId()).session.getBasicRemote().sendText(messgae);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (chatModel.getType() == ChatType.Mutil) {
-
-                } else {
-
+            if (transfer.getChatType() == ChatType.Single){
+                //私聊
+                SingleChat singleChat = JSON.parseObject(transfer.getData().toString(),SingleChat.class);
+                ChatWebSocket ToClient = OnlineUsers.get(singleChat.getToId());
+                if (null != ToClient){
+                    ToClient.session.getBasicRemote().sendText(messgae);
+                }else {
+                    //添加入缓存
                 }
+            }else if(transfer.getChatType() == ChatType.Mutil){
+                //群发
+                MutileChat mutileChat = JSON.parseObject(transfer.getData().toString(),MutileChat.class);
+
+            }
+            else {
+                this.session.getBasicRemote().sendText("error Message");
             }
         } else {
 
         }
-
-
-//        for (ChatWebSocket webSocket : webSockets) {    //这里是对所有的socket连接发送消息
-//            System.out.println("websocket消息,广播消息:{}" + messgae);
-//            try {
-//                webSocket.session.getBasicRemote().sendText(messgae);
-//            } catch (Exception e) {
-//                System.out.println("异常:{}" + e);
-//            }
-//        }
 
     }
 }
