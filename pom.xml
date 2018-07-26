@@ -17,10 +17,6 @@
 		<version>2.0.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-<<<<<<< HEAD
-=======
-
->>>>>>> 1e29ab326d19c8d9bb7b8068521b89ea2fa6ce70
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -90,11 +86,8 @@
 			<artifactId>xmlunit-core</artifactId>
 		</dependency>
 	</dependencies>
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 1e29ab326d19c8d9bb7b8068521b89ea2fa6ce70
 
 	<build>
 		<plugins>
