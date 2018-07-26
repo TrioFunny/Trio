@@ -42,3 +42,5 @@ pom.xml
 src/main/resources/application.properties
 *.xml
 pom.xml
+pom.xml
+src/main/resources/application.properties
