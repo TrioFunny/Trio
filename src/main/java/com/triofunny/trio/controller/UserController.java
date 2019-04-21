@@ -165,4 +165,13 @@ public class UserController {
 		return resultMsg;
 	}
 	
+	@RequestMapping(value = "/test")
+	@ResponseBody
+	public ResultMsg test(String data) {
+		ResultMsg resultMsg = new ResultMsg();
+		resultMsg.success(null);
+		
+		return resultMsg;
+	}
+	
 }
