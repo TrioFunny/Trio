@@ -1,6 +1,8 @@
 package com.triofunny.trio.websocket.chat;
 
-public class SocketUid {
+import java.io.Serializable;
+
+public class SocketUid implements Serializable {
     private String uid;
     private String uuid;
 

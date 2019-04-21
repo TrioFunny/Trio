@@ -65,16 +65,16 @@ public class SqlUtil {
 			break;
 		}
 		if (value instanceof List) {
-			List val=new ArrayList<>();
+			List val = new ArrayList<>();
 			val.addAll((List) value);
-			
-			String src=null;
-			src="(";
+
+			String src = null;
+			src = "(";
 			for (Object object : val) {
-				src+=object+",";
+				src += object + ",";
 			}
-			src=src.substring(0, src.length()-1);
-			src+=") ";
+			src = src.substring(0, src.length() - 1);
+			src += ") ";
 			switch (spliceType) {
 			case In:
 				sql = " " + field + " In " + src + " ";
@@ -85,6 +85,22 @@ public class SqlUtil {
 			}
 		}
 		return sql;
+	}
+
+	/**
+	 * 拼接判断排序方式
+	 * 
+	 * @param field(属性名称)
+	 * @param type(1为正序，其他倒叙)
+	 * @return
+	 */
+	public static String OrderBy(String field, int type) {
+		if (type == 1) {
+			return " order by " + field + " ";
+		} else {
+			return " order by " + field + " desc ";
+		}
+
 	}
 
 	public static enum SpliceType {
@@ -148,6 +164,6 @@ public class SqlUtil {
 	}
 
 	public static void main(String[] args) {
-		
+
 	}
 }
